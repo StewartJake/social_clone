@@ -1,7 +1,8 @@
 from django.db import models
-from django.utils.tect import slugify
+from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 from django import template
+from django.urls import reverse
 import misaka
 
 User = get_user_model()
@@ -13,7 +14,7 @@ class Group(models.Model):
     slug = models.SlugField(allow_unicode=True, unique=True)
     description = models.TextField(blank=True, default='')
     description_html = models.TextField(editable=False,
-                                        default-'',
+                                        default='',
                                         blank=True)
     member = models.ManyToManyField(User, through='GroupMember')
 
@@ -29,7 +30,7 @@ class Group(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('groups:single', kwargs={'slugs':self,slug})
+        return reverse('groups:single', kwargs={'slug': self.slug})
 
 
     class Meta:
@@ -39,10 +40,10 @@ class Group(models.Model):
 class GroupMember(models.Model):
     group = models.ForeignKey(Group,
               related_name='memberships',
-              on_delete=models.DELETE)
+              on_delete=models.CASCADE)
     user = models.ForeignKey(User,
               related_name='user_groups',
-              on_delete=models.DELETE)
+              on_delete=models.CASCADE)
     
 
     def __str__(self):

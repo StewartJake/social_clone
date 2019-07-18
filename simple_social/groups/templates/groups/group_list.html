@@ -26,22 +26,19 @@
 <div class="col-md-8">
 	<div class="list-group">
 		{% for group in object_list %}
-		<a href="{ url 'groups:single' slug=groups.slug %}"
-     			class="list-group-item">
-			<h3 class="title list-group-item-heading">{{ group.name }} </h3>
-			<div class="list-group-item-text container-fluid">
+		<a href="{% url 'groups:single' slug=group.slug %}"
+     			class="list-group-item list-group-item-action flex-column-align-items-start">
+			<h3 class="mb-1">{{ group.name }} </h3>
+			<p class="mb-1">
 				{{ group.description_html|safe }}
-				<div class="row">
-					<div class="col-md-4">
-						<span class="badge">{{ group.members,count }}</span>
-						member{{ group.members.count|pluralize }}
-					</div>
-					<div class="col-md-4">
-						<span class="badge">{{ group.posts.count }}</span>
-						post{{ group.posts.count|pluralize }}
-					</div>
+			</p>
+				<div class="d-flex w-40 justify-content-between">
+					<small class="text-muted"><span class="badge badge-secondary">{{ group.members.count }}</span>
+						Member{{ group.members.count|pluralize }}
+					<small class="text-muted"><span class="badge badge-secondary">{{ group.posts.count }}</span>
+						Post{{ group.posts.count|pluralize }}
+						<span></span><span></span>
 				</div>
-			</div>
 		</a>
 		{% endfor %}
 	</div>

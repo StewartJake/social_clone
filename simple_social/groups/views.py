@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
 from django.contrib import messages
-from urls import reverse
+from django.urls import reverse
 from django.views import generic
 from django.shortcuts import get_object_or_404
 from groups.models import Group, GroupMember
@@ -29,11 +29,11 @@ class JoinGroup(LoginRequiredMixin, generic.RedirectView):
                         kwargs={'slug':self.kwargs.get('slug')})
 
 
-    def get(self,request,*args,*kwargs):
+    def get(self,request,*args,**kwargs):
         group = get_object_or_404(Group, slug=self.kwargs.get('slug'))
 
         try:
-            GroupMember.objects.creat(user=self.reques.user,group=group)
+            GroupMember.objects.creat(user=self.request.user,group=group)
 
         except IntegrityError:
             messages.warning(self.request,'Warning already a member!')
@@ -49,7 +49,7 @@ class LeaveGroup(LoginRequiredMixin, generic.RedirectView):
         return reverse('groups:single',
                         kwargs={'slug':self.kwargs.get('slug')})
 
-    def get(self,request,*args,*kwargs):
+    def get(self,request,*args,**kwargs):
         
         try:
             membership = models.GroupMember.objects.filter(
