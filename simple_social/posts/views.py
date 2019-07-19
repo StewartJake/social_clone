@@ -5,6 +5,7 @@ from django.views import generic
 from django.http import Http404
 from braces.views import SelectRelatedMixin
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from . import models
 from . import forms
 # Create your views here.
@@ -79,7 +80,7 @@ class DeletePost(LoginRequiredMixin,
 
 
     def delete(self,*args,**kwargs):
-        message.success(self.request,'Post Deleted')
+        messages.success(self.request,'Post Deleted')
         return super().delete(*args, **kwargs)
 
 

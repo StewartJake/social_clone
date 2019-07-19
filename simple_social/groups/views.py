@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import render
 from django.contrib.auth.mixins import (LoginRequiredMixin,
                                         PermissionRequiredMixin)
@@ -33,7 +34,7 @@ class JoinGroup(LoginRequiredMixin, generic.RedirectView):
         group = get_object_or_404(Group, slug=self.kwargs.get('slug'))
 
         try:
-            GroupMember.objects.creat(user=self.request.user,group=group)
+            GroupMember.objects.create(user=self.request.user,group=group)
 
         except IntegrityError:
             messages.warning(self.request,'Warning already a member!')

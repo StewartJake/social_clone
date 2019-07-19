@@ -16,7 +16,7 @@ class Group(models.Model):
     description_html = models.TextField(editable=False,
                                         default='',
                                         blank=True)
-    member = models.ManyToManyField(User, through='GroupMember')
+    members = models.ManyToManyField(User, through='GroupMember')
 
 
     def __str__(self):

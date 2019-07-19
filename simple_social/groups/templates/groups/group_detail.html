@@ -1,9 +1,10 @@
-{% extends "groups/groups_base.html" %}
+{% extends "groups/group_base.html" %}
 
 {% block pregroup %}
-<h1>{{ group.name }}</h1>
-<h2>Member Count: {{ group.members.count }}</h2>
-<div class="content">
+<div class="container">
+	<div class="jumbotron">
+		<h1>{{ group.name }}</h1>
+		<h2>Member Count: {{ group.members.count }}</h2>
 	{% if user in group.members.all %}
 
 	<a href="{% url 'groups:leave' slug=group.slug %}"
@@ -16,15 +17,16 @@
 		<i class="fa fa-check-circle"></i>Join
 	</a>
 	{% endif %}
+	</div>
 </div>
-
+{% endblock %}
 {% block group_content %}
 <div class="col-md-8">
 	{% if group.posts.count == 0 %}
 	<h2>No posts yet!</h2>
 	{% else %}
 	  {% for post in group.posts.all %}
-	    {% include "posts/_posts.html" %}
+	    {% include "posts/_post.html" %}
 	  {% endfor %}
 	{% endif %}
 </div>

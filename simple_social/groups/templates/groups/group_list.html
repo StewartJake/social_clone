@@ -33,10 +33,8 @@
 				{{ group.description_html|safe }}
 			</p>
 				<div class="d-flex w-40 justify-content-between">
-					<small class="text-muted"><span class="badge badge-secondary">{{ group.members.count }}</span>
-						Member{{ group.members.count|pluralize }}
-					<small class="text-muted"><span class="badge badge-secondary">{{ group.posts.count }}</span>
-						Post{{ group.posts.count|pluralize }}
+					<span class="badge badge-pill badge-secondary">{{ group.members.count }}</span>Member{{ group.members.count|pluralize }}
+						<span class="badge badge-pill badge-secondary">{{ group.posts.count }}</span>Post{{ group.posts.count|pluralize }}
 						<span></span><span></span>
 				</div>
 		</a>
