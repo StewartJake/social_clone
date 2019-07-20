@@ -62,3 +62,14 @@ Firefly.prototype.stop = function() {
 	this.update();
 }
 
+Firefly.prototype.walk = function() {
+	var next_x = this.x + math.cos(degToRad(this.direction)) * this.speed,
+		next_y = this.y + math.sin(degToRad(this.direction)) * this.speed;
+	// Canvas Limits
+	if (next_x >= (canvas.width - this.width) && (this.direction < 90 || this direction > 270)) {
+		next_x = canvas.width - this.width;
+		this.direction = getRandomInt(90,270, this.direction);
+	}
+	this.direction += this.turner * this.turnerAmp;
+
+	this.update();
